@@ -8,32 +8,35 @@ class MemoryGame extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
 
-    return Center(
-      child: Consumer<CardViewModel>(
-        builder: (context, viewModel, child) {
-          return Wrap(
-            spacing: 8.0,
-            runSpacing: 8.0,
-            children: List.generate(viewModel.cardsGame.length, (index) {
-              final card = viewModel.cardsGame[index];
-              final isFlipped = viewModel.flippedCards.contains(card) || card.isFoundCouple;
-
-              return Container(
-                width: 200,
-                height: 250,
-                child: GestureDetector(
-                  onTap: () => viewModel.flipCard(card),
-                  child: isFlipped
-                    ? Image.asset(card.title)
-                    : Image.asset(
-                      'assets/card.png'
-                    )
-                ),
+    return ChangeNotifierProvider(
+      create: (_) => CardViewModel(),
+      child: Center(
+          child: Consumer<CardViewModel>(
+            builder: (context, viewModel, child) {
+              return Wrap(
+                spacing: 8.0,
+                runSpacing: 8.0,
+                children: List.generate(viewModel.cardsGame.length, (index) {
+                  final card = viewModel.cardsGame[index];
+                  final isFlipped = viewModel.flippedCards.contains(card) || card.isFoundCouple;
+        
+                  return Container(
+                    width: 200,
+                    height: 250,
+                    child: GestureDetector(
+                      onTap: () => viewModel.flipCard(card),
+                      child: isFlipped
+                        ? Image.asset(card.title)
+                        : Image.asset(
+                          'assets/card.png'
+                        )
+                    ),
+                  );
+                })
               );
-            })
-          );
-        }
-      )
+            }
+          )
+        ),
     );
   }
 }

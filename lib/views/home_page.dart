@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './memory_game.dart';
+import './quizz_game.dart';
+import './options.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -44,9 +46,14 @@ class _HomePageState extends State<HomePage> {
               )
             ), 
           ),
-          MemoryGame()
+          if (!_isGameVisible && !_isQuizzVisible) 
+            Options(onStartGame: _startMemoryGame, onStartQuizz: _startQuizz)
+          else if (_isGameVisible) 
+            MemoryGame()
+          else if (_isQuizzVisible)
+            QuizzGame(),
         ]
-      ),
+      )
     );
   }
 }
