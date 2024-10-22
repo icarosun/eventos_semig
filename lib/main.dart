@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './views/home_page.dart';
+import 'package:provider/provider.dart';
+import './viewmodel/card_viewmodel.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,13 +12,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Namer App',
+   return ChangeNotifierProvider(
+      create: (context) => CardViewModel(),
+      child: MaterialApp(
+        title: 'Jogo da memória SEMIG',
         theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+          primarySwatch: Colors.blue,
         ),
         home: HomePage(),
+      )
     );
   }
 }
