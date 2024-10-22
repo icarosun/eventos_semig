@@ -1,42 +1,51 @@
 import 'package:flutter/material.dart';
+import './memory_game.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool _isGameVisible = false;
+  bool _isQuizzVisible = false;
+
+  void _startMemoryGame() {
+    setState(() {
+      _isGameVisible = true;
+      _isQuizzVisible = false;
+    });
+  }
+
+  void _startQuizz() {
+    setState(() {
+      _isQuizzVisible = true;
+      _isGameVisible = false;
+    });
+  }
+
+  void _reset() {
+    setState(() {
+      _isGameVisible = false;
+      _isQuizzVisible = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/fundo_semig.png'),
-            fit: BoxFit.fill,
-          )
-        ),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  //Navigator.push(
-                  //  context,
-                  //  MaterialPageRoute(builder: (context) => QuizPage()),
-                  //);
-                },
-                child: Text('Quizz')
-              ),
-              TextButton(
-                onPressed: () {
-                  //Navigator.push(
-                  //  context,
-                  //  MaterialPageRoute(builder: (context) => QuizPage()),
-                  //);
-                },
-                child: Text('Jogo da Memória')
-              ),
-              TextButton(onPressed: () {}, child: Text('Jogo')),
-            ],
-          )
-        ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/fundo_semig.png'),
+                fit: BoxFit.fill,
+              )
+            ), 
+          ),
+          MemoryGame()
+        ]
       ),
     );
   }
